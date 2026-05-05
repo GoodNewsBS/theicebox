@@ -1,0 +1,436 @@
+*{
+padding: 0;
+  margin: 0;
+  box-sizing: border-box;}
+
+body{ 
+  width: 100%;
+  height: 100%;
+  background: #05386b;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #5cdb95, #05386b);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #5cdb95, #05386b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.offcanvas-title{
+  font-family: "Ranchers", system-ui;
+  font-size: 1.8rem;
+  color:rgb(249, 208, 3);
+
+}
+
+
+.offcanvas-body{
+	 font-family: "Ranchers",system-ui;
+    font-size: var(--font-size-md);
+    color:rgb(249, 208, 3);
+  background: #00B4DB;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */}
+
+.offcanvas-header{
+	 font-family: "Ranchers",system-ui;
+    font-size: var(--font-size-lg);
+    color:rgb(249, 208, 3);
+    background: #00B4DB;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */}
+
+.nav-link,
+.nav-item {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.4rem;
+  color:rgb(249, 208, 3) ;
+}
+.nav-item {
+	font-family: "Ranchers", system-ui;
+	font-size: 1.4rem;
+	  color:rgb(249, 208, 3) ;}
+.nav-link{
+	font-family: "Ranchers", system-ui;
+	font-size: 1.4rem;
+	  color:rgb(249, 208, 3) ;}
+
+.dropdown-item {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.3rem;
+ color:rgb(249, 208, 3) ;}
+
+
+
+h1 {
+  font-family: "Ranchers", system-ui;
+  font-size: clamp(2.5rem, 5vw, 6rem);
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  color:rgb(5, 162, 240);
+}
+
+
+	
+
+/* ================================================
+   ICEBOX FROZEN TREATS — SHARED RESPONSIVE GRID
+   Link this file in every page AFTER your
+   page-specific CSS, e.g.:
+     <link rel="stylesheet" href="waterice.css">
+     <link rel="stylesheet" href="icebox-grid.css">
+   ================================================ */
+
+/* ------------------------------------------------
+   BREAKPOINTS USED THROUGHOUT THIS FILE:
+   Mobile:  < 480px   (small phones)
+   Mobile:  < 768px   (phones)
+   Tablet:  768px–1024px
+   Desktop: 1024px–1440px
+   TV/Wide: > 1440px
+   ------------------------------------------------ */
+
+/* ================================================
+   1. PAGE WRAPPER
+   Centers all content and adds safe padding
+   ================================================ */
+.wrapper-main,
+.wrapper {
+  width: 100%;
+  max-width: 1600px;   /* caps content width on TV screens */
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* ================================================
+   2. MAIN CONTENT AREA
+   Single column by default, gains a sidebar
+   column on wider screens
+   ================================================ */
+main {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 1400px;
+  margin-inline: auto;
+}
+
+/* Tablet and up: add a sidebar column */
+@media (min-width: 768px) {
+  main {
+    grid-template-columns: 1fr 280px;
+  }
+}
+
+/* TV: wider sidebar */
+@media (min-width: 1440px) {
+  main {
+    grid-template-columns: 1fr 360px;
+    gap: 2.5rem;
+    padding: 2rem;
+  }
+}
+
+/* ================================================
+   3. CARD GRID
+   The core responsive grid used on all menu pages.
+   No media queries needed — auto-fill + minmax
+   handles mobile → TV automatically.
+   ================================================ */
+.cards {
+  display: grid;
+
+  /* Container query context so child cards can
+     respond to their own container width */
+  container: cards / inline-size;
+
+  /* auto-fill: creates as many columns as fit.
+     minmax(260px, 1fr): each column is min 260px,
+     max 1fr. Results:
+       < 480px  → 1 column
+       480-780px → 2 columns
+       780px-1040px → 3 columns
+       > 1040px → 4 columns
+       > 1300px → 5 columns (TV)            */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+
+  gap: 2rem;
+  padding: 1rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+/* TV screens: slightly larger minimum card width
+   so cards don't stretch too wide */
+@media (min-width: 1440px) {
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2.5rem;
+    padding: 1.5rem;
+  }
+}
+
+/* Very large TVs: cap at 6 columns */
+@media (min-width: 1920px) {
+  .cards {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* ================================================
+   4. INDIVIDUAL CARD
+   ================================================ */
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1em;
+  overflow: hidden;
+  background-color: wheat;
+  text-align: center;
+
+  /* Smooth hover lift */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Card image: always fills width, fixed height,
+   never stretches */
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Tablet and up: taller images */
+@media (min-width: 768px) {
+  .card-img-top {
+    height: 220px;
+  }
+}
+
+/* TV: even taller */
+@media (min-width: 1440px) {
+  .card-img-top {
+    height: 260px;
+  }
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  flex: 1; /* makes all cards equal height in a row */
+}
+
+/* Responsive card title using container query units
+   so it scales relative to the card's own width */
+.card h5 {
+   font-family: "Ranchers", system-ui;
+  font-size: clamp(1.1rem, 5cqi, 1.8rem);
+   color:rgb(5, 162, 240);
+}
+
+.card p {
+  font-size: clamp(0.9rem, 3cqi, 1.2rem);
+  font-family: "Ranchers", system-ui;
+   color:rgb(5, 162, 240);
+}
+
+/* ================================================
+   5. CONTAINER QUERIES
+   Cards respond to their container width,
+   not the viewport — works correctly even inside
+   sidebars or nested grids.
+   ================================================ */
+
+/* When the cards container is wider than 500px,
+   allow card content to go side-by-side */
+@container cards (min-width: 500px) {
+  .card {
+    text-align: center;
+  }
+}
+
+/* When the cards container is very wide (TV),
+   allow a horizontal card layout */
+@container cards (min-width: 900px) {
+  .card.card-horizontal {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .card.card-horizontal .card-img-top {
+    width: 200px;
+    height: 100%;
+    flex-shrink: 0;
+  }
+}
+
+
+
+/* Tablet: wider contact card */
+@media (min-width: 768px) {
+  .card-contact .card-img-top {
+    height: 240px;
+  }
+}
+
+/* TV: contact card stays capped, doesn't stretch */
+@media (min-width: 1440px) {
+  .contact-grid {
+    grid-template-columns: minmax(300px, 1000px);
+    margin-top: 3rem;
+  }
+}
+
+/* ================================================
+   7. CAROUSEL
+   ================================================ */
+.carousel {
+  width: min(40rem, 100%);
+  margin: 0 auto 3rem auto;
+}
+
+.carousel-inner {
+  height: 36rem;
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tablet: taller carousel */
+@media (min-width: 768px) {
+  .carousel-inner {
+    height: 42rem;
+  }
+}
+
+/* TV: wider and taller carousel */
+@media (min-width: 1440px) {
+  .carousel {
+    width: min(60rem, 100%);
+  }
+
+  .carousel-inner {
+    height: 52rem;
+  }
+}
+
+/* ================================================
+   8. LOCATION SECTION
+   ================================================ */
+.location-section {
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  padding-inline: 1rem;
+}
+
+.location-section img {
+  display: block;
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  margin: 2rem auto 0 auto;
+  border-radius: 1em;
+  object-fit: cover;
+}
+
+@media (min-width: 1440px) {
+  .location-section img {
+    max-width: 900px;
+  }
+}
+
+/* ================================================
+   9. ORDER BUTTON WRAPPER
+   ================================================ */
+.order-btn-wrapper {
+  text-align: center;
+  margin: 3rem auto 5rem auto;
+}
+
+/* ================================================
+   10. MILKSHAKES COLUMNS GRID (Milkshakes.css)
+   Replaces the broken 4-column fixed % grid
+   ================================================ */
+.columns {
+  width: min(90%, 75rem);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+@media (min-width: 1440px) {
+  .columns {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* ================================================
+   11. NAVBAR UTILITY
+   Consistent navbar sizing across all pages
+   ================================================ */
+.nav-link,
+.nav-item {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.4rem;
+}
+
+.dropdown-item {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.3rem;
+}
+
+/* TV: slightly larger nav text */
+@media (min-width: 1440px) {
+  .nav-link,
+  .nav-item {
+    font-size: 1.6rem;
+  }
+
+  .dropdown-item {
+    font-size: 1.5rem;
+  }
+}
+
+/* ================================================
+   12. TYPOGRAPHY SCALE
+   Fluid heading sizes using clamp():
+   clamp(min, preferred, max)
+   Scales smoothly between breakpoints with
+   no media queries needed.
+   ================================================ */
+h1 {
+  font-size: clamp(2.5rem, 5vw, 6rem);
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 3.5vw, 4rem);
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2.5vw, 3rem);
+  text-align: center;
+}
+
+h5 {
+  font-size: clamp(1.1rem, 2vw, 1.8rem);
+}
+
+p {
+  font-size: clamp(0.95rem, 1.5vw, 1.4rem);
+}
