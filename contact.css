@@ -1,0 +1,283 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* =====================
+   BODY
+   ===================== */
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: #F3904F; /* fallback */
+  background: -webkit-linear-gradient(to right, #3B4371, #F3904F);
+  background: linear-gradient(to right, #3B4371, #F3904F);
+}
+
+/* =====================
+   NAVBAR
+   ===================== */
+.navbar-brand {
+  font-family: "Ranchers", system-ui;
+  color: rgb(51, 206, 255);
+  font-size: var(--font-size-base-md);
+  align-self: center;
+}
+
+.ranchers-regular {
+  font-family: "Ranchers", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.offcanvas-body {
+  font-family: "Ranchers", system-ui;
+  font-size: var(--font-size-md);
+    color:rgb(51, 206, 255) ;
+background-color: wheat;
+}
+
+.offcanvas-header {
+  font-family: "Ranchers", system-ui;
+  font-size: var(--font-size-lg);
+  color: rgb(51, 206, 255);
+  background: #F3904F; /* fallback */
+  background: -webkit-linear-gradient(to right, #3B4371, #F3904F);
+  background: linear-gradient(to right, #3B4371, #F3904F);
+}
+
+.nav-link{
+	font-family: "Ranchers", system-ui;
+	font-size: 1.4rem;
+	 color:rgb(51, 206, 255) ;}
+
+.nav-item {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.4rem;
+  color: rgb(51, 206, 255);
+}
+
+.dropdown-item {
+  font-family: "Ranchers", system-ui;
+   font-size: 1.3rem;
+    color:rgb(51, 206, 255) ;
+}
+
+/* =====================
+   HEADINGS & TEXT
+   ===================== */
+h1 {
+  font-family: "Ranchers", system-ui;
+  font-size: 4rem;
+  color: rgb(73, 134, 210);
+  max-width: 1100px;
+  text-align: center;
+ margin: 3rem auto 2rem auto; 
+}
+
+h5 {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.8rem;
+  color: rgb(73, 134, 210);
+}
+
+p {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.4rem;
+  color: rgb(73, 134, 210);
+}
+
+a {
+  font-family: "Ranchers", system-ui;
+  font-size: 2rem;
+  color: rgb(73, 134, 210);
+}
+
+/* =====================
+   LAYOUT
+   ===================== */
+.main-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 90%;
+}
+
+/* Fixed: was grid-template-columns: 1fr (always one column).
+   Now uses auto-fill so two cards sit side by side on wider screens. */
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 1100px); /* minmax goes HERE in the grid */
+  gap: 3rem;
+  margin: 0 auto 4rem auto;
+  padding: 0;
+}
+
+
+.container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.location-section {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.location-section h5 {
+  margin-bottom: 3rem;
+}
+
+.location-section p {
+  margin-bottom: 2rem;
+}
+
+.order-btn-wrapper {
+  text-align: center;
+  margin: 4rem auto;
+}
+
+/* =====================
+   MAIN & CARDS GRID
+   ===================== */
+main {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.cards {
+  display: grid;
+  container: cards / inline-size;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  margin: auto;
+  justify-content: center;
+}
+
+/* =====================
+   CARDS
+   Fixed: removed duplicate align-content and align-self — align-items: center is enough.
+   ===================== */
+.card-contact {
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;        /* fills the grid column */
+  max-width: 1100px;   /* plain pixel value here, not minmax() */
+  background-color: bisque;
+  border-radius: 1em;
+  padding: 1rem;
+ margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Fixed: removed duplicate border-radius declaration */
+.card-social {
+  display: grid;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 1em;
+  margin: auto;
+  padding: 3rem;
+  background-color: bisque;
+  overflow: hidden;
+  align-items: center;
+}
+
+.card-title {
+  padding: 1rem;
+}
+
+.card-body {
+  padding: 0.5rem 1.8rem;
+  margin: auto;
+  gap: 1rem;
+  background-color: bisque;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =====================
+   CARD IMAGE
+   Fixed: width/height: auto means the image uses its natural size,
+   which can be enormous. width: 100% + fixed height + object-fit
+   keeps it contained and proportional.
+   ===================== */
+.card-img-top {
+  width: 100%;
+  height: 185px;
+  object-fit: cover;
+}
+
+/* =====================
+   CONTACT BUTTON
+   ===================== */
+.btn.btn-primary.btn-lg {
+  font-family: "Ranchers", system-ui;
+  font-size: 2.3rem;
+  color: white;
+}
+
+/* =====================
+   SOCIAL ICONS
+   ===================== */
+.logo-group {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+ion-icon {
+  width: 5rem;
+  height: 5rem;
+}
+
+/* =====================
+   CONTAINER QUERIES
+   Fixed: updated selectors from .card to .card-contact
+   so the rules actually target your elements.
+   ===================== */
+@container (width > 45ch) {
+  .card-contact {
+    grid-template-columns: auto minmax(25ch, 1fr);
+  }
+
+  .card-contact h5 {
+    grid-column: 1 / -1;
+  }
+}
+
+@container cards (min-width: 45ch) {
+  .card-contact,
+  .card-social {
+    text-align: center;
+  }
+}
+
+/* =====================
+   MEDIA QUERIES
+   ===================== */
+@media (min-width: 600px) and (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
