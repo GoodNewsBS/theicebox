@@ -1,124 +1,109 @@
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milkshakes</title>
-    <link rel="icon" type="image/jpg" href="icebox.jpg">
-    <link href="Milkshakes.css" type="text/css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>More Desserts — The IceBox Frozen Treats</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ranchers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="menu.css">
 </head>
-
-
-
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <nav class="navbar ">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="#" id="brand">
-                    <img src="icebox.jpg" alt="Logo" width="200" height="200" class="d-inline-block align-text-center ">
-                    </a>
-                </div>
-              </nav>
-              
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class= "nav-link" href="index.html" id="brand">Home</a>
-              </li>
-              
-              <li class="nav-item">
-                <a class= "nav-link" href="Locations.html" id="brand">Locations</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="brand">
-                  Menu
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="waterice.html">Water Ice</a></li>
-                  <li><a class="dropdown-item" href="Ice cream.html">Ice cream</a></li>
-                 <li><a class="dropdown-item"href="Milkshakes.html">Milkshakes</a></li>
-                 <li><a class="dropdown-item"href="Gelati.html">Gelati(s)</a></li>
-                 <li class="nav-item">
-                    <a class="dropdown-item" href="#">Hot Food</a>
-                  </li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="candy.html">Candy</a></li>
-                </ul>
-              </li> <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="brand">
-                  Order Now
-                </a>
-              <ul class="dropdown-menu">
-                <a class="dropdown-item" href="#" id="brand">Pick Up</a>
-              
-              <li class="nav-item">
-                <a class="nav-link" href="" id="brand">Catering</a>
-              </li>
-              </ul>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html" id="brand">Contact</a>
-              </li>
+<nav class="navbar sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">
+      <img src="iceboxbg.jpg" alt="The IceBox logo" width="120" height="120">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">The Icebox Frozen Treats</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Pick-up</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Catering</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Door Dash</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Uber Eats</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Menu</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="waterice.html">Water Ice</a></li>
+              <li><a class="dropdown-item" href="ice-cream.html">Ice Cream</a></li>
+              <li><a class="dropdown-item" href="hot-food.html">Hot Food</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="Gelati.html">Gelati(s)</a></li>
+              <li><a class="dropdown-item" href="Milkshakes.html">More Desserts</a></li>
             </ul>
-          </div>
-        </div>
-      </nav>
-      </ul>    
-< <div class="wrapper-main">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper-main">
   <h1>More Desserts</h1>
-  <p style="text-align:center; margin-bottom:2rem;">Unique creations you won't find anywhere else 🧇🍨</p>
+  <p class="page-subtitle">Unique creations you won't find anywhere else 🧇🍨</p>
+
   <main>
     <section class="cards">
- 
+
       <article class="card">
-        <img src="cintstsun.png" class="card-img-top" alt="Apple pie sundae with caramel and cinnamon">
-        <div class="card-body">
-          <h5>Cinnamon Toast Sundae</h5>
-          <p>Vanilla ice cream topped with cinnamon toast crunch &amp;caramel drizzle</p>
-          <a href="checkout.php?view=shop" class="button-glow" style="text-decoration:none; margin-top:auto;">Order Now</a>
-        </div>
+        <img src="sundae2.jpg" class="card-img-top" alt="Milkshakes">
+        <h5>Milkshakes</h5>
+        <p>Hand-spun milkshakes in Chocolate, Vanilla, Strawberry &amp; Oreo. Small $5 · Large $8</p>
+        <a href="cart.html" class="button-glow">Order Now</a>
       </article>
- 
+
       <article class="card">
-        <img src="wafflesun.png" class="card-img-top" alt="Waffle topped with strawberry ice cream scoops">
-        <div class="card-body">
-          <h5>Create Your Own Waffle Sundae</h5>
-          <p>A fresh waffle loaded with three scoops of ice cream(your choice), whipped cream, chocolate drizzle &amp; toppings.</p>
-          <a href="checkout.php?view=shop" class="button-glow" style="text-decoration:none; margin-top:auto;">Order Now</a>
-        </div>
+        <img src="cintstsun.png" class="card-img-top" alt="Apple Pie Sundae">
+        <h5>Apple Pie Sundae</h5>
+        <p>Vanilla ice cream topped with Cinnamon Toast Crunch, warm apple filling, caramel drizzle &amp; a cinnamon stick. $7.00</p>
+        <a href="cart.html" class="button-glow">Order Now</a>
       </article>
- 
+
       <article class="card">
-        <img src="oreosun.png" class="card-img-top" alt="Fried dough with vanilla ice cream and chocolate sauce">
-        <div class="card-body">
-          <h5>Fried Oreo Sundae</h5>
-          <p>Fried Oreos dusted with powdered sugar, topped with vanilla ice cream, whipped cream &amp; chocolate drizzle.</p>
-          <a href="checkout.php?view=shop" class="button-glow" style="text-decoration:none; margin-top:auto;">Order Now</a>
-        </div>
+        <img src="wafflesun.png" class="card-img-top" alt="Create Your Own Waffle">
+        <h5>Create Your Own Waffle</h5>
+        <p>Fresh waffle loaded with three scoops of ice cream, whipped cream, chocolate drizzle &amp; toppings. $11.00</p>
+        <a href="cart.html" class="button-glow">Order Now</a>
       </article>
- 
+
       <article class="card">
-        <img src="icecrepe.jpeg" class="card-img-top" alt="Ice cream crepe with sprinkles and strawberry drizzle">
-        <div class="card-body">
-          <h5>Ice Cream Crepe</h5>
-          <p>Crispy crepe filled with three scoops of ice cream, strawberry drizzle, whipped cream &amp; rainbow sprinkles.</p>
-          <a href="checkout.php?view=shop" class="button-glow" style="text-decoration:none; margin-top:auto;">Order Now</a>
-        </div>
+        <img src="oreosun.png" class="card-img-top" alt="Fried Oreo Sundae">
+        <h5>Fried Oreo Sundae</h5>
+        <p>Golden fried Oreos dusted with powdered sugar, topped with ice cream, whipped cream &amp; chocolate drizzle. $10.00</p>
+        <a href="cart.html" class="button-glow">Order Now</a>
       </article>
- 
+
+      <article class="card">
+        <img src="icecrepe.jpeg" class="card-img-top" alt="Ice Cream Crepe">
+        <h5>Ice Cream Crepe</h5>
+        <p>Crispy crepe filled with three scoops of ice cream, strawberry drizzle, whipped cream &amp; rainbow sprinkles. $10.50</p>
+        <a href="cart.html" class="button-glow">Order Now</a>
+      </article>
+
+      <article class="card">
+        <img src="dessert_friedoreo.png" class="card-img-top" alt="Fruity Tooty Donut Sundae">
+        <h5>Fruity Tooty Donut Sundae</h5>
+        <p>Vanilla ice cream topped with Fruit Loops &amp; strawberry syrup drizzle. $7.00</p>
+        <a href="cart.html" class="button-glow">Order Now</a>
+      </article>
+
     </section>
   </main>
+
   <div class="order-btn-wrapper">
-    <a href="checkout.php?view=shop" class="button-glow" style="text-decoration:none;">View Full Menu &amp; Order</a>
+    <a href="cart.html" class="button-glow">View Full Menu &amp; Order</a>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
- 
-    
-    </body>
 </html>

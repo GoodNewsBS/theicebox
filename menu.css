@@ -1,0 +1,339 @@
+/* ================================================
+   ICEBOX FROZEN TREATS — SHARED MENU CSS
+   Used by: waterice.html, Gelati.html,
+   ice-cream.html, hot-food.html, Milkshakes.html
+   Matches the homepage (index.html + icebox.css)
+   ================================================ */
+
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: #00B4DB;
+  background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);
+  background: linear-gradient(to right, #0083B0, #00B4DB);
+  margin: 0;
+  padding: 0;
+}
+
+/* =====================
+   NAVBAR — matches index.html exactly
+   ===================== */
+.navbar-brand {
+  margin-right: auto;
+  font-family: "Ranchers", system-ui;
+  font-size: 1.5rem;
+  color: rgb(51, 206, 255);
+}
+
+.ranchers-regular {
+  font-family: "Ranchers", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.offcanvas-body {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.4rem;
+  color: rgb(51, 206, 255);
+  background-color: wheat;
+}
+
+.offcanvas-header {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.5rem;
+  color: rgb(51, 206, 255);
+  background-color: wheat;
+}
+
+.nav-item,
+.nav-link {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.4rem;
+  color: rgb(51, 206, 255);
+}
+
+.dropdown-item {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.3rem;
+  color: rgb(51, 206, 255);
+}
+
+/* =====================
+   HEADINGS & TEXT — matches icebox.css
+   ===================== */
+h1 {
+  font-family: "Ranchers", system-ui;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  color: rgb(48, 194, 239);
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-family: "Ranchers", system-ui;
+  font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+  color: rgb(48, 194, 239);
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-family: "Ranchers", system-ui;
+  font-size: clamp(1.4rem, 2.5vw, 2.5rem);
+  color: rgb(48, 194, 239);
+  text-align: center;
+}
+
+h5 {
+  font-family: "Ranchers", system-ui;
+  font-size: clamp(1.2rem, 5cqi, 1.8rem);
+  color: rgb(48, 194, 239);
+  text-align: center;
+}
+
+p {
+  font-family: "Ranchers", system-ui;
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+  color: rgb(48, 194, 239);
+  text-align: center;
+}
+
+a {
+  font-family: "Ranchers", system-ui;
+  color: rgb(48, 194, 239);
+}
+
+/* =====================
+   PAGE WRAPPER
+   ===================== */
+.wrapper-main,
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* =====================
+   MAIN GRID
+   ===================== */
+main {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+/* =====================
+   CARDS GRID
+   Responsive — matches homepage grid
+   ===================== */
+.cards {
+  display: grid;
+  container: cards / inline-size;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  margin: auto;
+  justify-content: center;
+}
+
+/* =====================
+   INDIVIDUAL CARD — wheat background, same as homepage
+   ===================== */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 1em;
+  padding: 1.5rem;
+  margin: auto;
+  text-align: center;
+  background-color: wheat;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Card image — fills width, fixed height, no stretching */
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.5em;
+}
+
+.card h5 {
+  font-size: clamp(1.2rem, 5cqi, 1.8rem);
+}
+
+.card-img {
+  display: block;
+  margin-inline: auto;
+  max-width: 77%;
+  height: auto;
+}
+
+.card-img-overlay {
+  display: block;
+  margin: auto;
+  max-width: 75%;
+  height: auto;
+}
+
+/* =====================
+   ORDER BUTTON WRAPPER
+   ===================== */
+.order-btn-wrapper {
+  text-align: center;
+  margin: 3rem auto 5rem auto;
+}
+
+/* =====================
+   GLOW BUTTON — identical to homepage
+   ===================== */
+.button-glow {
+  --glow-color: rgb(217, 176, 255);
+  --glow-spread-color: rgba(191, 123, 255, 0.781);
+  --enhanced-glow-color: rgb(231, 206, 255);
+  --btn-color: rgb(100, 61, 136);
+  border: 0.2em solid var(--glow-color);
+  padding: 0.5em 2.5em;
+  color: var(--glow-color);
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Ranchers", system-ui;
+  background-color: var(--btn-color);
+  border-radius: 1em;
+  outline: none;
+  box-shadow:
+    0 0 1em 0.25em var(--glow-color),
+    0 0 4em 1em var(--glow-spread-color),
+    inset 0 0 0.75em 0.25em var(--glow-color);
+  text-shadow: 0 0 0.5em var(--glow-color);
+  position: relative;
+  transition: all 0.3s;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button-glow::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 120%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--glow-spread-color);
+  filter: blur(2em);
+  opacity: 0.7;
+  transform: perspective(1.5em) rotateX(35deg) scale(1, 0.6);
+}
+
+.button-glow:focus-visible {
+  color: var(--btn-color);
+  background-color: var(--glow-color);
+  box-shadow:
+    0 0 1em 0.25em var(--glow-color),
+    0 0 4em 2em var(--glow-spread-color),
+    inset 0 0 0.75em 0.25em var(--glow-color);
+}
+
+.button-glow:active {
+  box-shadow:
+    0 0 0.6em 0.25em var(--glow-color),
+    0 0 2.5em 2em var(--glow-spread-color),
+    inset 0 0 0.5em 0.25em var(--glow-color);
+}
+
+/* =====================
+   LOCATION SECTION
+   ===================== */
+.location-section {
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  padding-inline: 1rem;
+}
+
+.location-section img {
+  display: block;
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  margin: 2rem auto 0 auto;
+  border-radius: 1em;
+  object-fit: cover;
+}
+
+/* =====================
+   PAGE SUBTITLE
+   ===================== */
+.page-subtitle {
+  font-family: "Ranchers", system-ui;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* =====================
+   FLAVOR LIST inside cards
+   ===================== */
+.flavor-list {
+  text-align: left;
+  font-size: 0.95rem;
+  color: rgb(48, 194, 239);
+  list-style: disc;
+  padding-left: 1.5rem;
+  font-family: "Ranchers", system-ui;
+  line-height: 2;
+  margin: 0.5rem 0;
+}
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+@media (min-width: 760px) {
+  main {
+    grid-template-columns: 1fr 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@container (width > 45ch) {
+  .card {
+    grid-template-columns: auto minmax(25ch, 1fr);
+  }
+  .card h5 { grid-column: 1 / -1; }
+}
+
+@container cards (min-width: 45ch) {
+  .card { text-align: center; }
+}
