@@ -125,6 +125,21 @@ a {
   padding-inline: 1rem;
 }
 
+
+.carousel {
+  width: min(40rem, 100%);
+  margin: 0 auto 3rem auto;
+}
+
+.carousel-inner {
+  height: 36rem;
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 /* =====================
    MAIN GRID
    ===================== */
