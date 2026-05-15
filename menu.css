@@ -178,8 +178,8 @@ main {
   border-radius: 1em;
   padding: 1.5rem;
   margin: 0 auto;
-  text-align: center;
-  background: rgb(220, 148, 15);
+   background: rgb(220, 148, 15);
+   text-align: center;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
