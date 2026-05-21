@@ -167,23 +167,23 @@ main {
 }
 
 
-}/* =====================
+/* =====================
    INDIVIDUAL CARD — wheat background, same as homepage
    ===================== */
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  border-radius: 1em;
-  padding: 1.5rem;
-  margin: 0 auto;
-   background: rgb(220, 148, 15);
-   text-align: center;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
+   .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 1em;
+    padding: 1.5rem;
+    margin: auto;
+    text-align: center;
+    background-color: rgb(220, 148, 15) !important;  /* !important overrides Bootstrap */
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -192,8 +192,11 @@ main {
 /* Card image — fills width, fixed height, no stretching */
 .card-img-top {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 220px;
+  object-fit: contain;        /* shows full image, no cropping */
+  object-position: center;
+  background-color: wheat;    /* fills empty space around image */
+  padding: 0.5rem;            /* small breathing room around image */
   border-radius: 0.5em;
 }
 
