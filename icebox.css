@@ -68,6 +68,10 @@ background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, F
 	font-family: "Ranchers", system-ui;
 	font-size: 1.4rem;
 	  color:rgb(249, 208, 3) ;}
+    
+    .dropdown-menu{
+      color: rgb(0, 0, 0);
+    }
 
 <<<<<<< HEAD
  .dropdown-menu{

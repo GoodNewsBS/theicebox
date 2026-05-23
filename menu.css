@@ -125,6 +125,7 @@ a {
   padding-inline: 1rem;
 }
 
+<<<<<<< HEAD
 
 .carousel {
   width: min(40rem, 100%);
@@ -140,6 +141,8 @@ a {
   height: 100%;
   object-fit: cover;
 }
+=======
+>>>>>>> dbc5663 (ok)
 /* =====================
    MAIN GRID
    ===================== */
@@ -161,6 +164,7 @@ main {
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 2rem;
   padding: 1rem;
+<<<<<<< HEAD
   margin-inline: auto;
    width:100%;
   justify-content: center;
@@ -184,6 +188,29 @@ main {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   
+=======
+  margin: auto;
+  justify-content: center;
+}
+
+/* =====================
+   INDIVIDUAL CARD — wheat background, same as homepage
+   ===================== */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 1em;
+  padding: 1.5rem;
+  margin: auto;
+  text-align: center;
+  background-color: rgb(220,148,15);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+>>>>>>> dbc5663 (ok)
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -192,11 +219,16 @@ main {
 /* Card image — fills width, fixed height, no stretching */
 .card-img-top {
   width: 100%;
+<<<<<<< HEAD
   height: 220px;
   object-fit: contain;        /* shows full image, no cropping */
   object-position: center;
   background-color: wheat;    /* fills empty space around image */
   padding: 0.5rem;            /* small breathing room around image */
+=======
+  height: 200px;
+  object-fit: cover;
+>>>>>>> dbc5663 (ok)
   border-radius: 0.5em;
 }
 
