@@ -1,408 +1,1333 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The IceBox Frozen Treats</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Knewave&family=Ranchers&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="icebox.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Online — The IceBox Frozen Treats</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ranchers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="icebox-grid.css">
+  <style>
+    :root {
+      --blue-dark: #0083B0;
+      --blue-light: #00B4DB;
+      --ice: rgb(48, 194, 239);
+      --wheat: wheat;
+      --radius: 1em;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Ranchers", system-ui;
+      background: linear-gradient(to right, #0083B0, #00B4DB);
+      min-height: 100vh;
+      color: var(--ice);
+    }
+
+    /* ── NAVBAR ── */
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .site-nav a { color: var(--ice); text-decoration: none; font-size: 1.1rem; }
+    .site-nav .logo { font-size: 1.6rem; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .cart-badge {
+      background: white;
+      color: var(--blue-dark);
+      border-radius: 2em;
+      padding: 0.3em 1em;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      cursor: pointer;
+    }
+
+    /* ── PAGE ── */
+    .page { max-width: 1200px; margin-inline: auto; padding: 2rem 1.5rem; }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: var(--ice);
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--ice);
+      margin-bottom: 1rem;
+    }
+
+    /* ── CATEGORY TABS ── */
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .cat-tab {
+      font-family: "Ranchers", system-ui;
+      font-size: 0.95rem;
+      padding: 0.4em 1.1em;
+      border-radius: 2em;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .cat-tab:hover  { background: rgba(255,255,255,0.28); }
+    .cat-tab.active { background: white; color: var(--blue-dark); border-color: white; }
+
+    /* ── STICKY CART BANNER ── */
+    .cart-banner {
+      background: rgba(0,0,0,0.3);
+      color: white;
+      text-align: center;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      position: sticky;
+      top: 70px;
+      z-index: 50;
+      display: none;
+    }
+    .cart-banner a { color: white; text-decoration: underline; margin-left: 0.5rem; }
+
+    /* ── CATEGORY SECTION ── */
+    .category-section { margin-bottom: 3rem; }
+    .category-heading {
+      font-family: "Ranchers", system-ui;
+      font-size: 1.8rem;
+      color: white;
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── PRODUCT GRID ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: var(--wheat);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .product-card .card-body {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex: 1;
+    }
+    .product-card h3 { font-size: 1.2rem; color: var(--blue-dark); }
+    .product-card p  { font-size: 0.85rem; color: #555; font-family: system-ui; flex: 1; }
+    .product-price   { font-size: 1.4rem; color: var(--blue-dark); font-weight: bold; }
+
+    /* ── SIZE BADGE ── */
+    .size-badge {
+      display: inline-block;
+      font-family: "Ranchers", system-ui;
+      font-size: 0.75rem;
+      background: var(--blue-dark);
+      color: white;
+      padding: 0.15em 0.7em;
+      border-radius: 2em;
+      margin-bottom: 0.2rem;
+      align-self: flex-start;
+    }
+
+    /* ── ADD TO CART FORM ── */
+    .add-form {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: auto;
+    }
+    .qty-input {
+      width: 55px;
+      padding: 0.4em 0.5em;
+      border: 2px solid var(--blue-dark);
+      border-radius: 0.5em;
+      font-family: "Ranchers", system-ui;
+      font-size: 1rem;
+      color: var(--blue-dark);
+      text-align: center;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      font-family: "Ranchers", system-ui;
+      font-size: 1rem;
+      border: none;
+      border-radius: 0.6em;
+      padding: 0.5em 1.2em;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover  { opacity: 0.88; }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary   { background: var(--blue-dark); color: white; }
+    .btn-secondary { background: white; color: var(--blue-dark); }
+    .btn-danger    { background: #c0392b; color: white; }
+    .btn-success   {
+      background: #27ae60;
+      color: white;
+      font-size: 1.1rem;
+      padding: 0.7em 2em;
+      width: 100%;
+      text-align: center;
+      display: block;
+    }
+
+    /* ── CART SECTION ── */
+    .cart-section {
+      margin-top: 4rem;
+      display: none;
+    }
+    .cart-section.visible { display: block; }
+
+    .cart-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+    .cart-table th,
+    .cart-table td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-size: 1rem;
+      color: white;
+    }
+    .cart-table th { opacity: 0.8; font-size: 0.9rem; }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.15);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      color: white;
+    }
+
+    .cart-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    /* ── FLASH ── */
+    .flash {
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      text-align: center;
+      background: rgba(255,255,255,0.25);
+      color: white;
+      font-size: 1.1rem;
+      display: none;
+    }
+
+    /* ── HIDDEN ── */
+    .hidden { display: none !important; }
+
+    @media (max-width: 480px) {
+      .cart-table th:nth-child(2),
+      .cart-table td:nth-child(2) { display: none; }
+      .site-nav { padding: 0.8rem 1rem; }
+      .page { padding: 1rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class= "wrapper-main">
-    
 
-<nav class="navbar sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="index.html">
-  <img src="iceboxbg.jpg" alt="Logo" width="150" height="150">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">The Icebox Frozen Treats</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link" href="cart.html">Pick-up</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="cart.html">Catering</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Door Dash</a>
-          </li>
-
-            <li class="nav-item">
-            <a class="nav-link" href="#">Uber Eats</a>
-          </li>            
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Menu
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="waterice.html">Water Ice</a></li>
-              <li><a class="dropdown-item" href="Icecream.html">Ice Cream</a></li>
-
-                <li><a class="dropdown-item" href="HotFood.html">Hot food</a></li>                
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="Gelati.html">Gelati(s)</a></li>
-             <li><a class="dropdown-item" href="Milkshakes.html">More Desserts</a>
-             </li>               
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
+<!-- ── NAVBAR ── -->
+<nav class="site-nav">
+  <a href="index.html" class="logo">🧊 The IceBox</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <span class="cart-badge" onclick="scrollToCart()">
+      🛒 Cart <span id="nav-count"></span>
+    </span>
   </div>
 </nav>
 
+<div class="page">
+  <h1>Order Online</h1>
+  <p style="text-align:center; color:rgba(255,255,255,0.8); font-size:1rem; margin-bottom:1rem;">
+    Note your flavor &amp; size in the Order Notes at checkout.
+  </p>
 
+  <!-- Flash message -->
+  <div class="flash" id="flash-msg"></div>
 
-    
-      
-      
-    
+  <!-- Category tabs -->
+  <div class="category-tabs" id="categoryTabs">
+    <button class="cat-tab active" onclick="filterCategory('all', this)">All</button>
+    <button class="cat-tab" onclick="filterCategory('water-ice', this)">Water Ice</button>
+    <button class="cat-tab" onclick="filterCategory('gelati', this)">Gelati</button>
+    <button class="cat-tab" onclick="filterCategory('ice-cream', this)">Ice Cream</button>
+    <button class="cat-tab" onclick="filterCategory('cones', this)">Cones</button>
+    <button class="cat-tab" onclick="filterCategory('sundaes', this)">Signature Sundaes</button>
+    <button class="cat-tab" onclick="filterCategory('unique-desserts', this)">Unique Desserts</button>
+    <button class="cat-tab" onclick="filterCategory('milkshakes', this)">Milkshakes</button>
+    <button class="cat-tab" onclick="filterCategory('snacks', this)">Snacks</button>
+    <button class="cat-tab" onclick="filterCategory('pretzels', this)">Pretzels</button>
+    <button class="cat-tab" onclick="filterCategory('toppings', this)">Toppings</button>
+  </div>
 
-      <h1>The IceBox Frozen Treats</h1>
-   
-    
-    
-<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="10000">
-      <img src="icecrepe.jpg" class="d-block w-100" alt="">
-    </div>
-    <div class="carousel-item" data-bs-interval="2000">
-      <img src="sundae.jpeg" class="d-block w-100" alt="">
-    </div>
-    <div class="carousel-item">
-      <img src="iceboxflight.png" class="d-block w-100" alt="">
-    </div>
-    <div class="carousel-item">
-      <img src="inside.jpg" class="d-block w-100" alt="">
+  <!-- Sticky cart banner -->
+  <div class="cart-banner" id="cart-banner">
+    🛒 <span id="banner-count"></span> item(s) in cart —
+    <strong id="banner-total"></strong>
+    <a href="#cart-section" onclick="scrollToCart()">View Cart →</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       WATER ICE
+       Kids $1.50 · Sm $2.50 · Med $4 · Lg $6 · XL $9
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="water-ice">
+    <h2 class="category-heading">Water Ice</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="rainbowwi.png" alt="Water Ice Kids" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Water+Ice'">
+        <div class="card-body">
+          <span class="size-badge">Kids</span>
+          <h3>Water Ice — Kids</h3>
+          <p>Kids size water ice. Flavors: Mango, Lemon, Cherry, Blueberry, Pineapple, Candy Fish, Watermelon, Pina Colada, Root Beer, Cotton Candy, Tropical Rainbow, Blue Hawaiian, Sour Rainbow, Strawberry Lemonade, Sugar Free Cherry.</p>
+          <div class="product-price">$1.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'waterice_kids', 'Water Ice — Kids', 150)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="cttn.png" alt="Water Ice Small" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Water+Ice'">
+        <div class="card-body">
+          <span class="size-badge">Small</span>
+          <h3>Water Ice — Small</h3>
+          <p>Small water ice. 15+ flavors including Mango, Cherry, Blueberry, Watermelon, Cotton Candy, Sour Rainbow & more.</p>
+          <div class="product-price">$2.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'waterice_sm', 'Water Ice — Small', 250)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="iceboxflight.png" alt="Water Ice Medium" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Water+Ice'">
+        <div class="card-body">
+          <span class="size-badge">Medium</span>
+          <h3>Water Ice — Medium</h3>
+          <p>Medium water ice. 15+ flavors including Mango, Cherry, Blueberry, Watermelon, Cotton Candy, Sour Rainbow & more.</p>
+          <div class="product-price">$4.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'waterice_md', 'Water Ice — Medium', 400)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="strawberryndcherry.png" alt="Water Ice Large" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Water+Ice'">
+        <div class="card-body">
+          <span class="size-badge">Large</span>
+          <h3>Water Ice — Large</h3>
+          <p>Large water ice. 15+ flavors including Mango, Cherry, Blueberry, Watermelon, Cotton Candy, Sour Rainbow & more.</p>
+          <div class="product-price">$6.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'waterice_lg', 'Water Ice — Large', 600)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="pinaandmangowi.png" alt="Water Ice X-Large" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Water+Ice'">
+        <div class="card-body">
+          <span class="size-badge">X-Large</span>
+          <h3>Pina Coldada Water Ice — X-Large</h3>
+          <p>X-Large water ice. 15+ flavors available.</p>
+          <div class="product-price">$9.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'waterice_xl', 'Water Ice — X-Large', 900)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>  
 
-     <br><br><br>
-     
-<h2>All your favorite frozen treats in one place!!</h2>
-    
-     <section class="location-section">
-    <h3>Our Location</h3>
-    <br><br><br><br><br>
- <h2>402 N Springfield Rd , Clifton Heights, PA</h2>   
-    <br><br><br> 
-    <h5>Sun-Thurs :1PM-9PM    
-        Fri-Sat : 1PM-10PM</h5>
-     <br>
-     <img src="outsside.jpg" class="location-img" alt="">
-     </section>
+  <!-- ══════════════════════════════════════
+       GELATI
+       Sm $4.50 · Med $5 · Lg $6.50 · XL $10
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="gelati">
+    <h2 class="category-heading">Gelati</h2>
+    <div class="product-grid">
 
+      <div class="product-card">
+        <img src="cottoncandygelatiwjimmys.png" alt="Gelati Small" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Gelati'">
+        <div class="card-body">
+          <span class="size-badge">Small</span>
+          <h3>Gelati — Small</h3>
+          <p>Water ice layered with soft serve ice cream. Choose any water ice flavor + any ice cream flavor.</p>
+          <div class="product-price">$4.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'gelati_sm', 'Gelati — Small', 450)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
 
+      <div class="product-card">
+        <img src="doublegelati.png" alt="Gelati Medium" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Gelati'">
+        <div class="card-body">
+          <span class="size-badge">Medium</span>
+          <h3>Gelati — Medium</h3>
+          <p>Water ice layered with soft serve ice cream. Medium size. Pick your favorite flavor combo.</p>
+          <div class="product-price">$5.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'gelati_md', 'Gelati — Medium', 500)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
 
- 
-<div class="wrapper">
-  <main>
- 
-    <!-- ── Category Filter Tabs ── -->
-    <div class="category-tabs" id="categoryTabs">
-      <button class="cat-tab active" onclick="filterCards('all', this)">All</button>
-      <button class="cat-tab" onclick="filterCards('water-ice', this)">Water Ice</button>
-      <button class="cat-tab" onclick="filterCards('gelati', this)">Gelati</button>
-      <button class="cat-tab" onclick="filterCards('ice-cream', this)">Ice Cream</button>
-      <button class="cat-tab" onclick="filterCards('sundaes', this)">Sundaes</button>
-      <button class="cat-tab" onclick="filterCards('unique-desserts', this)">Unique Desserts</button>
-      <button class="cat-tab" onclick="filterCards('milkshakes', this)">Milkshakes</button>
-      <button class="cat-tab" onclick="filterCards('hot-food', this)">Hot Food</button>
-      <button class="cat-tab" onclick="filterCards('snacks', this)">Snacks</button>
-      <button class="cat-tab" onclick="filterCards('pretzels', this)">Pretzels</button>
+      <div class="product-card">
+        <img src="mangogelati.png" alt="Gelati Large" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Gelati'">
+        <div class="card-body">
+          <span class="size-badge">Large</span>
+          <h3>Gelati — Large</h3>
+          <p>Water ice layered with soft serve ice cream. Large size. Pick your favorite flavor combo.</p>
+          <div class="product-price">$6.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'gelati_lg', 'Gelati — Large', 650)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="trop.png" alt="Gelati X-Large" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Gelati'">
+        <div class="card-body">
+          <span class="size-badge">X-Large</span>
+          <h3>Gelati — X-Large</h3>
+          <p>Water ice layered with soft serve ice cream. X-Large size. Perfect for sharing!</p>
+          <div class="product-price">$10.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'gelati_xl', 'Gelati — X-Large', 1000)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
     </div>
- 
-    <section class="cards" id="cardGrid">
- 
-      <!-- WATER ICE -->
-      <article class="card" data-category="water-ice">
-        <img src="strawberryndcherry.png" class="card-img-top" alt="Water ice in cups"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Water+Ice'">
-        <div class="card-body">
-          <h5>Water Ice</h5>
-          <p>+15 Classic Philly style water ice in 15+ flavors. Kids $1.50 · Sm $2.50 · Med $4 · Lg $6 · XL $9</p>
-          <a href="waterice.html" class="card-link">See Flavors →</a>
-        </div>
-      </article>
- 
-      <!-- GELATI -->
-      <article class="card" data-category="gelati">
-        <img src="mangogelati.png" class="card-img-top" alt="Blue raspberry gelati"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Gelati'">
-        <div class="card-body">
-          <h5>Gelati</h5>
-          <p>+15 Water ice layered with soft serve ice cream. Sm $4.50 · Med $5 · Lg $6.50 · XL $10</p>
-          <a href="Gelati.html" class="card-link">See Options →</a>
-        </div>
-      </article>
- 
-      <!-- SOFT SERVE ICE CREAM -->
-      <article class="card" data-category="ice-cream">
-        <img src="cinnabuncone.png" class="card-img-top" alt="Soft serve ice cream"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Ice+Cream'">
-        <div class="card-body">
-          <h5>Soft Serve Ice Cream</h5>
-          <p>+11 flavors including Vanilla, Chocolate, Birthday Cake & Sugar Free Vanilla. Sm $4 · Med $5 · Lg $7</p>
-          <a href="checkout.php?view=shop&cat=Ice+Cream" class="card-link">Order Now →</a>
-        </div>
-      </article>
- 
-      
-      <!-- FROZEN CUP -->
-      <article class="card" data-category="ice-cream">
-        <img src="sundae2.jpg" class="card-img-top" alt="IceBox frozen cup"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Frozen+Cup'">
-        <div class="card-body">
-          <h5>Moosetrack sundae</h5>
-          <p>Vanilla ice cream blended with caramel syrup, Reese's cups and sprinkles. $5.00</p>
-          <a href="checkout.php?view=shop&cat=Ice+Cream" class="card-link">Order Now →</a>
-        </div>
-      </article>
- 
-      <!-- BROWNIE SUNDAE -->
-      <article class="card" data-category="sundaes">
-        <img src="brwnysundae.jpg" class="card-img-top" alt="Brownie sundae"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Brownie+Sundae'">
-        <div class="card-body">
-          <h5>Brownie Sundae</h5>
-          <p>Vanilla ice cream with hot fudge or caramel, whipped cream & a cherry on top. $7.00</p>
-          <a href="checkout.php?view=shop&cat=Signature+Sundaes" class="card-link">Order Now →</a>
-        </div>
-      </article>
- 
- 
-      <!-- CINNAMON TOAST SUNDAE -->
-      <article class="card" data-category="sundaes">
-        <img src="cintstsun.png" class="card-img-top" alt="Cinnamon toast donut sundae"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Cinnamon+Sundae'">
-        <div class="card-body">
-          <h5>Cinnamon Toast Sundae</h5>
-          <p>Vanilla ice cream topped with Cinnamon Toast Crunch & caramel drizzle. $7.00</p>
-          <a href="checkout.php?view=shop&cat=Signature+Sundaes" class="card-link">Order Now →</a>
-        </div>
-      </article>
- 
-      <!-- FRUITY TOOTY SUNDAE -->
-      <article class="card" data-category="sundaes">
-        <img src="cherrysundae.png" class="card-img-top" alt="Fruity tooty donut sundae"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Fruity+Sundae'">
-        <div class="card-body">
-          <h5> Cherry Sundae</h5>
-          <p>Vanilla ice cream topped cherries & cherry syrup. $7.00</p>
-          <a href="checkout.php?view=shop&cat=Signature+Sundaes" class="card-link">Order Now →</a>
-        </div>
-      </article>
- 
-      <!-- UNIQUE DESSERTS -->
-      <article class="card" data-category="unique-desserts">
-        <img src="wafflesun.png" class="card-img-top" alt="Create your own waffle"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Waffle'">
-        <div class="card-body">
-          <h5>Create Your Own Waffle</h5>
-          <p>Fresh waffle with three scoops of ice cream, whipped cream & your choice of toppings.</p>
-          <a href="Milkshakes.html" class="card-link">See Desserts →</a>
-        </div>
-      </article>
- 
-      <article class="card" data-category="unique-desserts">
-        <img src="oreosun.png" class="card-img-top" alt="Fried oreo sundae"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Fried+Oreo'">
-        <div class="card-body">
-          <h5>Fried Oreo Sundae</h5>
-          <p>Golden fried dough dusted with powdered sugar, topped with ice cream & chocolate drizzle.</p>
-          <a href="Milkshakes.html" class="card-link">See Desserts →</a>
-        </div>
-      </article>
- 
-      <article class="card" data-category="unique-desserts">
-        <img src="icecrepe.jpeg" class="card-img-top" alt="Ice cream crepe"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Crepe'">
-        <div class="card-body">
-          <h5>Ice Cream Crepe</h5>
-          <p>Crispy crepe filled with three scoops of ice cream, strawberry drizzle & rainbow sprinkles.</p>
-          <a href="Milkshakes.html" class="card-link">See Desserts →</a>
-        </div>
-      </article>
- 
-      <!-- MILKSHAKES -->
-      <article class="card" data-category="milkshakes">
-        <img src="sundae.jpeg" class="card-img-top" alt="Milkshake"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Milkshake'">
-        <div class="card-body">
-          <h5>Milkshakes</h5>
-          <p>Hand-spun milkshakes in Chocolate, Vanilla, Strawberry & Oreo. Small $5 · Large $8</p>
-          <a href="checkout.php?view=shop&cat=Milkshakes" class="card-link">Order Now →</a>
-        </div>
-      </article>
-      
-      <article class="card" data-category="milkshakes">
-        <img src="sundae2.jpg" class="card-img-top" alt="Milkshake"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Milkshake'">
-        <div class="card-body">
-          <h5>Milkshakes</h5>
-          <p>Hand-spun milkshakes in Chocolate, Vanilla, Strawberry & Oreo. Small $5 · Large $8</p>
-          <a href="checkout.php?view=shop&cat=Milkshakes" class="card-link">Order Now →</a>
-        </div>
-      </article>
- 
+  </div>
 
-      <!-- HOT FOOD -->
-      <article class="card" data-category="hot-food">
-        <img src="friedoreo.png" class="card-img-top" alt="Fried dough"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Fried+Dough'">
+  <!-- ══════════════════════════════════════
+       ICE CREAM
+       Sm $4 · Med $5 · Lg $7
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="ice-cream">
+    <h2 class="category-heading">Ice Cream</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="gbicecream.png" alt="Soft Serve Small" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Ice+Cream'">
         <div class="card-body">
-          <h5>Fried Oreos</h5>
-          <p>Boardwalk-style fried oreos dusted with powdered sugar & creamy dipping sauce.</p>
-          <a href="hotfood.html" class="card-link">See Hot Food →</a>
+          <span class="size-badge">Small</span>
+          <h3>Soft Serve — Small</h3>
+          <p>Flavors: Vanilla, Strawberry, Chocolate, Cookies & Cream, Mint Choc Chip, Butter Pecan, Coffee, Strawberry Cheesecake, Birthday Cake, Black Sweet Cherry, Sugar Free Vanilla.</p>
+          <div class="product-price">$4.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'softserve_sm', 'Soft Serve — Small', 400)">Add to Cart</button>
+          </div>
         </div>
-      </article>
- 
-      <article class="card" data-category="hot-food">
-        <img src="pizzapretzel.png" class="card-img-top" alt="Pizza bread"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Pizza'">
+      </div>
+
+      <div class="product-card">
+        <img src="luckyice.png" alt="Soft Serve Medium" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Ice+Cream'">
         <div class="card-body">
-          <h5>Pizza Pretzel</h5>
-          <p>Toasted pretzel loaded with marinara, melted mozzarella & pepperoni. $4.00</p>
-          <a href="hotfood.html" class="card-link">See Hot Food →</a>
+          <span class="size-badge">Medium</span>
+          <h3>Soft Serve — Medium</h3>
+          <p>Flavors: Vanilla, Strawberry, Chocolate, Cookies & Cream, Mint Choc Chip, Butter Pecan, Coffee, Strawberry Cheesecake, Birthday Cake, Black Sweet Cherry, Sugar Free Vanilla.</p>
+          <div class="product-price">$5.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'softserve_md', 'Soft Serve — Medium', 500)">Add to Cart</button>
+          </div>
         </div>
-      </article>
- 
-      <!-- SNACKS -->
-      <article class="card" data-category="snacks">
-        <img src="fries.jpeg" class="card-img-top" alt="Snacks"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Snacks'">
+      </div>
+
+      <div class="product-card">
+        <img src="cinnabunice.png" alt="Soft Serve Large" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Ice+Cream'">
         <div class="card-body">
-          <h5>Hot food</h5>
-          <p>Hot Dogs $2.50 · Hot Sausage $3.50 · Funnel Cake Fries $6.00 Loaded Buffalo Chicken Fries $9.00</p>
-          <a href="checkout.php?view=shop&cat=Snacks" class="card-link">Order Now →</a>
+          <span class="size-badge">Large</span>
+          <h3>Soft Serve — Large</h3>
+          <p>Flavors: Vanilla, Strawberry, Chocolate, Cookies & Cream, Mint Choc Chip, Butter Pecan, Coffee, Strawberry Cheesecake, Birthday Cake, Black Sweet Cherry, Sugar Free Vanilla.</p>
+          <div class="product-price">$7.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'softserve_lg', 'Soft Serve — Large', 700)">Add to Cart</button>
+          </div>
         </div>
-      </article>
- 
-      <!-- PRETZELS -->
-      <article class="card" data-category="pretzels">
-        <img src="pizzapretzel.png" class="card-img-top" alt="Pretzels"
-             onerror="this.src='https://placehold.co/400x200/00B4DB/white?text=Pretzels'">
+      </div>
+
+      <div class="product-card">
+        <img src="iceee.jpg" alt="Hand Dipped Small" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Hand+Dipped'">
         <div class="card-body">
-          <h5>Pretzels</h5>
-          <p>Plain $1.50 · Cheese $2.00 · Pizza Pretzel $3.50 · Turkey Pepperoni Pizza $4.00</p>
-          <a href="checkout.php?view=shop&cat=Pretzels" class="card-link">Order Now →</a>
+          <span class="size-badge">Small</span>
+          <h3>Hand Dipped — Small</h3>
+          <p>Hand scooped ice cream. 11 flavors available.</p>
+          <div class="product-price">$4.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'handdipped_sm', 'Hand Dipped — Small', 400)">Add to Cart</button>
+          </div>
         </div>
-      </article>
- 
-    </section>
-  </main>
-</div>
- 
-<style>
-  /* ── Category Tabs ── */
-  .category-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 1.5rem auto 1.5rem auto;
-    max-width: 1200px;
-    padding: 0 1rem;
-  }
- 
-  .cat-tab {
-    font-family: "Ranchers", system-ui;
-    font-size: 0.95rem;
-    padding: 0.4em 1.1em;
-    border-radius: 2em;
-    background: rgba(255,255,255,0.15);
-    color: rgb(48,194,239);
-    border: 1px solid rgba(48,194,239,0.4);
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-  }
- 
-  .cat-tab:hover  { background: rgba(255,255,255,0.25); }
-  .cat-tab.active { background: rgb(48,194,239); color: #004a6e; border-color: rgb(48,194,239); }
- 
-  /* ── Card link ── */
-  .card-link {
-    font-family: "Ranchers", system-ui;
-    font-size: 1rem;
-    color: rgb(0,131,176);
-    text-decoration: none;
-    margin-top: auto;
-    display: inline-block;
-  }
- 
-  .card-link:hover { text-decoration: underline; }
- 
-  /* ── Hidden cards ── */
-  .card.hidden {
-    display: none;
-  }
-</style>
- 
+      </div>
+
+      <div class="product-card">
+        <img src="cookiemns.png" alt="Hand Dipped Medium" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Hand+Dipped'">
+        <div class="card-body">
+          <span class="size-badge">Medium</span>
+          <h3>Cookie Monster Ice cream — Medium</h3>
+          <p>Hand scooped ice cream. 11 flavors available.</p>
+          <div class="product-price">$5.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'handdipped_md', 'Hand Dipped — Medium', 500)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Hand Dipped Large" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Hand+Dipped'">
+        <div class="card-body">
+          <span class="size-badge">Large</span>
+          <h3>Hand Dipped — Large</h3>
+          <p>Hand scooped ice cream. 11 flavors available.</p>
+          <div class="product-price">$7.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'handdipped_lg', 'Hand Dipped — Large', 700)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="IceBox Frozen Cup" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Frozen+Cup'">
+        <div class="card-body">
+          <h3>The IceBox Frozen Cup</h3>
+          <p>Vanilla ice cream blended with your choice of toppings. A signature IceBox treat!</p>
+          <div class="product-price">$5.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'frozen_cup', 'The IceBox Frozen Cup', 500)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       CONES — 75¢ each
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="cones">
+    <h2 class="category-heading">Cones — 75¢ each</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Kids Cone" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Cone'">
+        <div class="card-body">
+          <h3>Kids Cone</h3>
+          <p>Kids size cone. Add to any ice cream order.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'cone_kids', 'Kids Cone', 75)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Large Cone" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Cone'">
+        <div class="card-body">
+          <h3>Large Cone</h3>
+          <p>Large cone. Add to any ice cream order.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'cone_large', 'Large Cone', 75)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Sugar Cone" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Cone'">
+        <div class="card-body">
+          <h3>Sugar Cone</h3>
+          <p>Classic sweet sugar cone. Add to any ice cream order.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'cone_sugar', 'Sugar Cone', 75)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Small Waffle Cone" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Waffle+Cone'">
+        <div class="card-body">
+          <h3>Small Waffle Cone</h3>
+          <p>Small fresh-baked waffle cone. Add to any ice cream order.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'cone_waffle_sm', 'Small Waffle Cone', 75)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Large Waffle Cone" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Waffle+Cone'">
+        <div class="card-body">
+          <h3>Large Waffle Cone</h3>
+          <p>Large fresh-baked waffle cone. Add to any ice cream order.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'cone_waffle_lg', 'Large Waffle Cone', 75)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SIGNATURE SUNDAES
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="sundaes">
+    <h2 class="category-heading">Signature Sundaes</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="brwnysundae.jpg" alt="Brownie Sundae" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Brownie+Sundae'">
+        <div class="card-body">
+          <h3>Brownie Sundae</h3>
+          <p>Vanilla ice cream with hot fudge or caramel, whipped cream, topped with a cherry.</p>
+          <div class="product-price">$7.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'sundae_brownie', 'Brownie Sundae', 700)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="cookiemns.png" alt="Cookie Sundae" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Cookie+Sundae'">
+        <div class="card-body">
+          <h3>Cookie Sundae</h3>
+          <p>Vanilla ice cream drizzled with caramel and whipped cream.</p>
+          <div class="product-price">$6.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'sundae_cookie', 'Cookie Sundae', 600)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="cintstsun.png" alt="Cinnamon Toast Donut Sundae" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Cinnamon+Sundae'">
+        <div class="card-body">
+          <h3>Cinnamon Toast Donut Sundae</h3>
+          <p>Vanilla ice cream topped with Cinnamon Toast Crunch, drizzled with caramel.</p>
+          <div class="product-price">$8.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'sundae_cinnamontoast', 'Cinnamon Toast Donut Sundae', 700)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="fruitytooty.png" alt="Fruity Tooty Donut Sundae" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Fruity+Sundae'">
+        <div class="card-body">
+          <h3>Fruity Tooty Donut Sundae</h3>
+          <p>Vanilla ice cream topped with Fruit Loops, drizzled with strawberry syrup.</p>
+          <div class="product-price">$8.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'sundae_fruitytooty', 'Fruity Tooty Donut Sundae', 700)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="product-card">
+        <img src="oreosun.png" alt="Fried Oreo Sundae" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Fried+Oreo'">
+        <div class="card-body">
+          <h3>Fried Oreo Sundae</h3>
+          <p>Golden fried Oreos dusted with powdered sugar, topped with vanilla ice cream, whipped cream & chocolate drizzle.</p>
+          <div class="product-price">$8.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'dessert_friedoreo', 'Fried Oreo Sundae', 1000)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       UNIQUE DESSERTS
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="unique-desserts">
+    <h2 class="category-heading">Unique Desserts</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="wafflesun.png" alt="Create Your Own Waffle" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Waffle'">
+        <div class="card-body">
+          <h3>Create Your Own Waffle</h3>
+          <p>Fresh waffle loaded with three scoops of ice cream, whipped cream, chocolate drizzle & your choice of toppings.</p>
+          <div class="product-price">$11.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'dessert_waffle', 'Create Your Own Waffle', 1100)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="product-card">
+        <img src="icecrepe.jpeg" alt="Ice Cream Crepe" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Crepe'">
+        <div class="card-body">
+          <h3>Ice Cream Crepe</h3>
+          <p>Crispy crepe filled with three scoops of ice cream, strawberry drizzle, whipped cream & rainbow sprinkles.</p>
+          <div class="product-price">$10.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'dessert_crepe', 'Ice Cream Crepe', 1050)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MILKSHAKES
+       Small $5 · Large $8
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="milkshakes">
+    <h2 class="category-heading">Milkshakes</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="latishake.jpg" alt="Milkshake Small" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Milkshake'">
+        <div class="card-body">
+          <span class="size-badge">Small</span>
+          <h3>Milkshake — Small</h3>
+          <p>Hand-spun milkshake. Flavors: Chocolate, Vanilla, Strawberry, Oreo.</p>
+          <div class="product-price">$5.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'milkshake_sm', 'Milkshake — Small', 500)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="oreomilkshake.png" alt="Milkshake Large" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Milkshake'">
+        <div class="card-body">
+          <span class="size-badge">Large</span>
+          <h3>Milkshake — Large</h3>
+          <p>Hand-spun milkshake. Flavors: Chocolate, Vanilla, Strawberry, Oreo.</p>
+          <div class="product-price">$8.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'milkshake_lg', 'Milkshake — Large', 800)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SNACKS
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="snacks">
+    <h2 class="category-heading">Icebox Hot-Food And Snacks</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="hdndsaus.png" alt="Hot Dog" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Hot+Dog'">
+        <div class="card-body">
+          <h3>Hot Dog</h3>
+          <p>Classic hot dog. A perfect pairing with your frozen treat.</p>
+          <div class="product-price">$2.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'snack_hotdog', 'Hot Dog', 250)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="hdndsaus.png" alt="Hot Sausage" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Hot+Sausage'">
+        <div class="card-body">
+          <h3>Hot Sausage</h3>
+          <p>Juicy hot sausage sandwich.</p>
+          <div class="product-price">$3.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'snack_hotsausage', 'Hot Sausage', 350)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="fries.jpeg" alt="Funnel Cake Fries" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Funnel+Cake'">
+        <div class="card-body">
+          <h3>Funnel Cake Fries</h3>
+          <p>Crispy golden funnel cake fries dusted with powdered sugar.</p>
+          <div class="product-price">$6.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'snack_funnel', 'Funnel Cake Fries', 600)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="buffnacho.png" alt="Buffalo Chicken Nachos" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Funnel+Cake'">
+        <div class="card-body">
+          <h3>Buffalo Chicken Nachos</h3>
+          <p>Loaded buffalo chicken nachos that brings blasts of flavor and savoriness.</p>
+          <div class="product-price">$6.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'snack_funnel', 'Funnel Cake Fries', 600)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PRETZELS
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="pretzels">
+    <h2 class="category-heading">Pretzels</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="" alt="Plain Pretzel" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Pretzel'">
+        <div class="card-body">
+          <h3>Plain Pretzel</h3>
+          <p>Classic soft baked plain pretzel.</p>
+          <div class="product-price">$1.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'pretzel_plain', 'Plain Pretzel', 150)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="chzzprtzl.png" alt="Cheese Pretzel" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Cheese+Pretzel'">
+        <div class="card-body">
+          <h3>Cheese Pretzel</h3>
+          <p>Soft pretzel topped with melted cheese.</p>
+          <div class="product-price">$2.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'pretzel_cheese', 'Cheese Pretzel', 200)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="pizzapretzel.png" alt="Pizza Pretzel" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Pizza+Pretzel'">
+        <div class="card-body">
+          <h3>Turkey Pepperoni Pizza Pretzel</h3>
+          <p>Soft pretzel loaded with marinara sauce and mozzarella.</p>
+          <div class="product-price">$7.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'pretzel_pizza', 'Pizza Pretzel', 350)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="buffprtzl.png" alt="Beef Pepperoni Pizza" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Pizza'">
+        <div class="card-body">
+          <h3>Buffalo Chicken Pizza</h3>
+          <p>Toasted bread with marinara, melted mozzarella & beef pepperoni.</p>
+          <div class="product-price">$8.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'pretzel_pepperoni', 'Beef Pepperoni Pizza', 400)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TOPPINGS — 75¢ each
+  ══════════════════════════════════════ -->
+  <div class="category-section" data-category="toppings">
+    <h2 class="category-heading">Toppings — 75¢ each</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Rainbow Sprinkles" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Sprinkles'">
+        <div class="card-body">
+          <h3>Rainbow Sprinkles</h3>
+          <p>Add rainbow sprinkles to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_rainbow', 'Rainbow Sprinkles', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Chocolate Sprinkles" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Sprinkles'">
+        <div class="card-body">
+          <h3>Chocolate Sprinkles</h3>
+          <p>Add chocolate sprinkles to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_chocsprink', 'Chocolate Sprinkles', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Chocolate Chips" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Choc+Chips'">
+        <div class="card-body">
+          <h3>Chocolate Chips</h3>
+          <p>Add chocolate chips to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_chocchips', 'Chocolate Chips', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Oreos" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Oreos'">
+        <div class="card-body">
+          <h3>Oreos</h3>
+          <p>Add crushed Oreos to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_oreos', 'Oreos', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Reese Cups" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Reese+Cups'">
+        <div class="card-body">
+          <h3>Reese Cups</h3>
+          <p>Add Reese Cups to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_reesecups', 'Reese Cups', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Brownie Bites" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Brownie+Bites'">
+        <div class="card-body">
+          <h3>Brownie Bites</h3>
+          <p>Add brownie bites to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_brownie', 'Brownie Bites', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Gummy Bears" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Gummy+Bears'">
+        <div class="card-body">
+          <h3>Gummy Bears</h3>
+          <p>Add gummy bears to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_gummies', 'Gummy Bears', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Sour Worm" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Sour+Worm'">
+        <div class="card-body">
+          <h3>Sour Worm</h3>
+          <p>Add sour worms to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_sourworm', 'Sour Worm', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Lemon Heads" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Lemon+Heads'">
+        <div class="card-body">
+          <h3>Lemon Heads</h3>
+          <p>Add lemon heads to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_lemonheads', 'Lemon Heads', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Crushed Walnuts" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Walnuts'">
+        <div class="card-body">
+          <h3>Crushed Walnuts</h3>
+          <p>Add crushed walnuts to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_walnuts', 'Crushed Walnuts', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Cinnamon Toast Crunch" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Cinn+Toast'">
+        <div class="card-body">
+          <h3>Cinnamon Toast Crunch</h3>
+          <p>Add Cinnamon Toast Crunch to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_cinntoast', 'Cinnamon Toast Crunch', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Fruit Loops" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Fruit+Loops'">
+        <div class="card-body">
+          <h3>Fruit Loops</h3>
+          <p>Add Fruit Loops to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_fruitloops', 'Fruit Loops', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Strawberry Syrup" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Straw+Syrup'">
+        <div class="card-body">
+          <h3>Strawberry Syrup</h3>
+          <p>Add strawberry syrup drizzle to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_strawsyrup', 'Strawberry Syrup', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Chocolate Syrup" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Choc+Syrup'">
+        <div class="card-body">
+          <h3>Chocolate Syrup</h3>
+          <p>Add chocolate syrup drizzle to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_chocsyrup', 'Chocolate Syrup', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Caramel Syrup" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Caramel'">
+        <div class="card-body">
+          <h3>Caramel Syrup</h3>
+          <p>Add caramel syrup drizzle to any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_caramel', 'Caramel Syrup', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae2.jpg" alt="Cherries" onerror="this.src='https://placehold.co/400x180/00B4DB/white?text=Cherries'">
+        <div class="card-body">
+          <h3>Cherries</h3>
+          <p>Add cherries on top of any item.</p>
+          <div class="product-price">$0.75</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'topping_cherries', 'Cherries', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       CART SECTION
+  ══════════════════════════════════════ -->
+  <div class="cart-section" id="cart-section">
+    <h2 class="category-heading">🛒 Your Cart</h2>
+
+    <div id="empty-cart" style="text-align:center; padding:2rem; color:white; display:none;">
+      Your cart is empty — add some treats above!
+    </div>
+
+    <div id="cart-content">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Unit Price</th>
+            <th>Qty</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="cart-body"></tbody>
+      </table>
+
+      <div class="cart-total-row">
+        <span>Total</span>
+        <strong id="cart-total"></strong>
+      </div>
+
+      <div class="cart-actions">
+        <button onclick="clearCart()" class="btn btn-danger">Clear Cart</button>
+      </div>
+
+      <a href="payment.html" class="btn btn-success" id="checkout-btn">
+        Proceed to Checkout — <span id="checkout-total"></span>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /.page -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  function filterCards(category, clickedBtn) {
-    // Update active tab
-    document.querySelectorAll('.cat-tab').forEach(btn => btn.classList.remove('active'));
+  // ── Cart helpers ──────────────────────────────────────────
+  function getCart()       { return JSON.parse(localStorage.getItem('icebox_cart') || '[]'); }
+  function saveCart(cart)  { localStorage.setItem('icebox_cart', JSON.stringify(cart)); }
+  function formatPrice(c)  { return '$' + (c / 100).toFixed(2); }
+  function cartTotal(cart) { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
+
+  // ── Add to cart ───────────────────────────────────────────
+  function addToCart(btn, id, name, price) {
+    const qtyInput = btn.parentElement.querySelector('.qty-input');
+    const qty      = parseInt(qtyInput.value) || 1;
+    const cart     = getCart();
+    const existing = cart.find(i => i.id === id);
+
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      cart.push({ id, name, price, qty });
+    }
+
+    saveCart(cart);
+    qtyInput.value = 1;
+    showFlash(name + ' added to cart!');
+    renderCart();
+  }
+
+  // ── Flash message ─────────────────────────────────────────
+  function showFlash(msg) {
+    const el = document.getElementById('flash-msg');
+    el.textContent  = '✅ ' + msg;
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 2500);
+  }
+
+  // ── Category filter ───────────────────────────────────────
+  function filterCategory(category, clickedBtn) {
+    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
     clickedBtn.classList.add('active');
- 
-    // Show/hide cards
-    document.querySelectorAll('#cardGrid .card').forEach(card => {
-      if (category === 'all' || card.dataset.category === category) {
-        card.classList.remove('hidden');
+
+    document.querySelectorAll('.category-section').forEach(section => {
+      if (category === 'all' || section.dataset.category === category) {
+        section.classList.remove('hidden');
       } else {
-        card.classList.add('hidden');
+        section.classList.add('hidden');
       }
     });
   }
+
+  // ── Scroll to cart ────────────────────────────────────────
+  function scrollToCart() {
+    const el = document.getElementById('cart-section');
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ── Render cart ───────────────────────────────────────────
+  function renderCart() {
+    const cart       = getCart();
+    const total      = cartTotal(cart);
+    const count      = cart.reduce((s, i) => s + i.qty, 0);
+    const emptyEl    = document.getElementById('empty-cart');
+    const contentEl  = document.getElementById('cart-content');
+    const bodyEl     = document.getElementById('cart-body');
+    const totalEl    = document.getElementById('cart-total');
+    const checkoutEl = document.getElementById('checkout-total');
+    const bannerEl   = document.getElementById('cart-banner');
+    const navEl      = document.getElementById('nav-count');
+    const sectionEl  = document.getElementById('cart-section');
+
+    // Update nav badge
+    if (navEl) navEl.textContent = count > 0 ? '(' + count + ')' : '';
+
+    // Update sticky banner
+    if (count > 0) {
+      bannerEl.style.display = 'block';
+      document.getElementById('banner-count').textContent = count;
+      document.getElementById('banner-total').textContent = formatPrice(total);
+    } else {
+      bannerEl.style.display = 'none';
+    }
+
+    // Show/hide cart section
+    if (count > 0) {
+      sectionEl.classList.add('visible');
+    } else {
+      sectionEl.classList.remove('visible');
+    }
+
+    if (cart.length === 0) {
+      emptyEl.style.display   = 'block';
+      contentEl.style.display = 'none';
+      return;
+    }
+
+    emptyEl.style.display   = 'none';
+    contentEl.style.display = 'block';
+
+    bodyEl.innerHTML = cart.map((item, index) => `
+      <tr>
+        <td>${item.name}</td>
+        <td>${formatPrice(item.price)}</td>
+        <td>
+          <input type="number" class="qty-input" value="${item.qty}"
+            min="0" max="99" onchange="updateQty(${index}, this.value)">
+        </td>
+        <td>${formatPrice(item.price * item.qty)}</td>
+        <td>
+          <button onclick="removeItem(${index})" class="btn btn-danger"
+            style="padding:0.3em 0.7em; font-size:0.85rem;">✕</button>
+        </td>
+      </tr>
+    `).join('');
+
+    totalEl.textContent    = formatPrice(total);
+    checkoutEl.textContent = formatPrice(total);
+  }
+
+  // ── Update qty ────────────────────────────────────────────
+  function updateQty(index, qty) {
+    const cart = getCart();
+    qty = parseInt(qty);
+    if (qty <= 0) { cart.splice(index, 1); }
+    else          { cart[index].qty = qty; }
+    saveCart(cart);
+    renderCart();
+  }
+
+  // ── Remove item ───────────────────────────────────────────
+  function removeItem(index) {
+    const cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+  }
+
+  // ── Clear cart ────────────────────────────────────────────
+  function clearCart() {
+    if (confirm('Clear your entire cart?')) {
+      saveCart([]);
+      renderCart();
+    }
+  }
+
+  // ── Init ──────────────────────────────────────────────────
+  renderCart();
 </script>
- 
-    
- 
-  
-  <div class="order-btn-wrapper">
-   <!-- Replace any order buttons with this -->
-<a href=""cart.html" class="button-glow" style="text-decoration:none;">
-  Order Ahead
-</a>
-  
-  </div>
-    
-  </div>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
-    
 </html>
