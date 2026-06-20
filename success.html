@@ -1,29 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Thanks for your order!</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="client.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — The IceBox Frozen Treats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ranchers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="icebox.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Ranchers", system-ui;
+      background: linear-gradient(to right, #0083B0, #00B4DB);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .success-box {
+      background: rgba(255,255,255,0.15);
+      border-radius: 1em;
+      padding: 3rem 2rem;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .success-icon {
+      font-size: 5rem;
+      line-height: 1;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: rgb(48, 194, 239);
+    }
+
+    p {
+      font-family: system-ui, sans-serif;
+      font-size: 1.1rem;
+      color: white;
+      line-height: 1.6;
+    }
+
+    .order-details {
+      background: rgba(255,255,255,0.1);
+      border-radius: 0.75em;
+      padding: 1.25rem;
+      text-align: left;
+    }
+
+    .order-details h2 {
+      font-size: 1.3rem;
+      color: rgb(48, 194, 239);
+      margin-bottom: 0.75rem;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      font-family: "Ranchers", system-ui;
+      font-size: 1rem;
+      color: white;
+    }
+
+    .order-total-row {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 0.75rem;
+      font-family: "Ranchers", system-ui;
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .location-info {
+      background: rgba(255,255,255,0.1);
+      border-radius: 0.75em;
+      padding: 1.25rem;
+    }
+
+    .location-info h2 {
+      font-size: 1.3rem;
+      color: rgb(48, 194, 239);
+      margin-bottom: 0.5rem;
+    }
+
+    .location-info p {
+      font-size: 1rem;
+      color: white;
+    }
+
+    .btn-home {
+      font-family: "Ranchers", system-ui;
+      font-size: 1.2rem;
+      background: white;
+      color: #0083B0;
+      border: none;
+      border-radius: 0.6em;
+      padding: 0.7em 2em;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+
+    .btn-home:hover { opacity: 0.88; }
+  </style>
 </head>
 <body>
-  <section>
-    <div class="product Box-root">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="16px" viewBox="0 0 14 16" version="1.1">
-          <defs/>
-          <g id="Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-              <g id="0-Default" transform="translate(-121.000000, -40.000000)" fill="#E184DF">
-                  <path d="M127,50 L126,50 C123.238576,50 121,47.7614237 121,45 C121,42.2385763 123.238576,40 126,40 L135,40 L135,56 L133,56 L133,42 L129,42 L129,56 L127,56 L127,50 Z M127,48 L127,42 L126,42 C124.343146,42 123,43.3431458 123,45 C123,46.6568542 124.343146,48 126,48 L127,48 Z" id="Pilcrow"/>
-              </g>
-          </g>
-      </svg>
-      <div class="description Box-root">
-        <h3>Subscription to Starter plan successful!</h3>
-      </div>
+
+<div class="success-box">
+
+  <div class="success-icon">✅</div>
+
+  <h1>Order Confirmed!</h1>
+
+  <p>
+    Thank you for ordering from The IceBox Frozen Treats!
+    A confirmation receipt has been sent to your email.
+  </p>
+
+  <!-- Order summary from localStorage -->
+  <div class="order-details" id="order-summary" style="display:none;">
+    <h2>Your Order</h2>
+    <div id="order-items"></div>
+    <div class="order-total-row">
+      <span>Total Paid</span>
+      <strong id="order-total"></strong>
     </div>
-    <form action="/create-portal-session.php" method="POST">
-      <input type="hidden" id="session-id" name="session_id" value="" />
-      <button id="checkout-and-portal-button" type="submit">Manage your billing information</button>
-    </form>
-  </section>
+  </div>
+
+  <!-- Pickup info -->
+  <div class="location-info">
+    <h2>📍 Pickup Location</h2>
+    <p>402 N Springfield Rd<br>Clifton Heights, PA</p>
+    <br>
+    <p>Sun–Thurs: 1PM–9PM</p>
+    <p>Fri–Sat: 1PM–10PM</p>
+  </div>
+
+  <p style="font-size:0.95rem; opacity:0.8;">
+    Your order will be prepared fresh when you arrive.
+    Please show this confirmation at the counter.
+  </p>
+
+  <a href="index.html" class="btn-home">🧊 Back to Home</a>
+
+</div>
+
+<script>
+  // Show order summary from localStorage
+  const cart = JSON.parse(localStorage.getItem('icebox_cart') || '[]');
+
+  if (cart.length > 0) {
+    const total     = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const itemsEl   = document.getElementById('order-items');
+    const totalEl   = document.getElementById('order-total');
+    const summaryEl = document.getElementById('order-summary');
+
+    itemsEl.innerHTML = cart.map(item => `
+      <div class="order-item">
+        <span>${item.name} × ${item.qty}</span>
+        <span>$${((item.price * item.qty) / 100).toFixed(2)}</span>
+      </div>
+    `).join('');
+
+    totalEl.textContent    = '$' + (total / 100).toFixed(2);
+    summaryEl.style.display = 'block';
+
+    // Clear cart after showing
+    localStorage.removeItem('icebox_cart');
+  }
+</script>
+
 </body>
 </html>
