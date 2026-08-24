@@ -8,29 +8,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Ranchers&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="menu.css">
   <style>
-    /* ── Carousel sizing ── */
+    /* ── Carousel — all images forced to same size ── */
     .carousel {
       max-width: 700px;
       margin: 0 auto 2.5rem auto;
       border-radius: 1em;
       overflow: hidden;
+      background: #0083B0;
     }
 
-    .carousel-inner {
-      height: 380px;
+    .carousel-inner,
+    .carousel-item {
+      height: 420px;
     }
 
-    .carousel-inner img {
+    .carousel-item img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: 420px;
+      object-fit: cover;        /* crops to fill — no size differences */
+      object-position: center;  /* always centers the crop */
+      display: block;
     }
 
     @media (max-width: 600px) {
-      .carousel-inner { height: 220px; }
+      .carousel-inner,
+      .carousel-item,
+      .carousel-item img { height: 240px; }
     }
 
-    /* ── Size + price table inside card ── */
+    /* ── Sizes & prices table ── */
     .price-table {
       width: 100%;
       border-collapse: collapse;
@@ -39,7 +45,6 @@
       color: rgb(48, 194, 239);
       margin-top: 0.5rem;
     }
-
     .price-table th {
       border-bottom: 2px solid rgb(48, 194, 239);
       padding: 0.3rem 0.5rem;
@@ -47,7 +52,6 @@
       font-size: 0.9rem;
       opacity: 0.8;
     }
-
     .price-table td {
       padding: 0.3rem 0.5rem;
       border-bottom: 1px solid rgba(48, 194, 239, 0.2);
@@ -57,7 +61,7 @@
 <body>
 <div class="wrapper-main">
 
-  <!-- ── NAVBAR ── -->
+  <!-- NAVBAR -->
   <nav class="navbar sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">
@@ -72,32 +76,18 @@
       <div class="offcanvas offcanvas-end" tabindex="-1"
         id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-            The Icebox Frozen Treats
-          </h5>
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">The Icebox Frozen Treats</h5>
           <button type="button" class="btn-close"
             data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="cart.html">Pick-up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="cart.html">Catering</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Door Dash</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Uber Eats</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="cart.html">Pick-up</a></li>
+            <li class="nav-item"><a class="nav-link" href="cart.html">Catering</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Door Dash</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Uber Eats</a></li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#"
                 role="button" data-bs-toggle="dropdown">Menu</a>
@@ -116,11 +106,11 @@
     </div>
   </nav>
 
-  <!-- ── HEADING ── -->
+  <!-- HEADING -->
   <h1>Water Ice</h1>
   <p class="page-subtitle">Classic Philly water ice — made fresh daily 🧊</p>
 
-  <!-- ── CAROUSEL ── -->
+  <!-- CAROUSEL -->
   <div id="watericeCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="3000">
@@ -148,27 +138,24 @@
     </button>
   </div>
 
-  <!-- ── CARDS GRID ── -->
+  <!-- CARDS GRID -->
   <main>
     <section class="cards">
 
-      <!-- Cotton Candy -->
       <article class="card">
         <img src="cttn.png" class="card-img-top" alt="Cotton Candy water ice">
         <h5>Cotton Candy</h5>
-        <p>Sweet and fluffy cotton candy flavor — a crowd favorite.</p>
+        <p>Sweet and fluffy cotton candy — a crowd favorite.</p>
         <a href="cart.html" class="button-glow">Order Now</a>
       </article>
 
-      <!-- Mango & Cotton Candy -->
       <article class="card">
         <img src="cttnndmang.png" class="card-img-top" alt="Mango and Cotton Candy water ice">
         <h5>Mango &amp; Cotton Candy</h5>
-        <p>Tropical mango swirled with sweet cotton candy — a perfect combo.</p>
+        <p>Tropical mango swirled with sweet cotton candy.</p>
         <a href="cart.html" class="button-glow">Order Now</a>
       </article>
 
-      <!-- Cherry & Strawberry Lemonade -->
       <article class="card">
         <img src="strawberryndcherry.png" class="card-img-top"
           alt="Cherry and strawberry lemonade water ice">
@@ -177,7 +164,6 @@
         <a href="cart.html" class="button-glow">Order Now</a>
       </article>
 
-      <!-- Barbie -->
       <article class="card">
         <img src="brbie.jpeg" class="card-img-top" alt="Barbie water ice">
         <h5>Barbie</h5>
@@ -185,7 +171,6 @@
         <a href="cart.html" class="button-glow">Order Now</a>
       </article>
 
-      <!-- Sour Rainbow -->
       <article class="card">
         <img src="sourwi.png" class="card-img-top" alt="Sour Rainbow water ice">
         <h5>Sour Rainbow</h5>
@@ -193,16 +178,14 @@
         <a href="cart.html" class="button-glow">Order Now</a>
       </article>
 
-      <!-- Pina Colada & Mango -->
       <article class="card">
         <img src="pinaandmangowi.png" class="card-img-top"
           alt="Pina Colada and Mango water ice">
         <h5>Pina Colada &amp; Mango</h5>
-        <p>Tropical island vibes in a cup — pina colada meets fresh mango.</p>
+        <p>Tropical island vibes — pina colada meets fresh mango.</p>
         <a href="cart.html" class="button-glow">Order Now</a>
       </article>
 
-      <!-- Rainbow -->
       <article class="card">
         <img src="rainbowwi.png" class="card-img-top" alt="Rainbow water ice">
         <h5>Rainbow</h5>
@@ -212,14 +195,11 @@
 
       <!-- Sizes & Prices -->
       <article class="card">
-        <div style="width:100%; padding: 0.5rem 0;">
+        <div style="width:100%; padding:0.5rem 0;">
           <h5>Sizes &amp; Prices</h5>
           <table class="price-table">
             <thead>
-              <tr>
-                <th>Size</th>
-                <th>Price</th>
-              </tr>
+              <tr><th>Size</th><th>Price</th></tr>
             </thead>
             <tbody>
               <tr><td>Kids</td><td>$1.50</td></tr>
@@ -235,7 +215,7 @@
 
       <!-- All Flavors -->
       <article class="card">
-        <div style="width:100%; padding: 0.5rem 0;">
+        <div style="width:100%; padding:0.5rem 0;">
           <h5>All 15+ Flavors</h5>
           <ul class="flavor-list">
             <li>Mango</li>
@@ -261,12 +241,12 @@
     </section>
   </main>
 
-  <!-- ── ORDER BUTTON ── -->
+  <!-- ORDER BUTTON -->
   <div class="order-btn-wrapper">
     <a href="cart.html" class="button-glow">View Full Menu &amp; Order</a>
   </div>
 
-</div><!-- /.wrapper-main -->
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
