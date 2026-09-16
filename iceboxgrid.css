@@ -136,41 +136,36 @@ main {
    ================================================ */
 .cards {
   display: grid;
-
-  /* Container query context so child cards can
-     respond to their own container width */
   container: cards / inline-size;
-
-  /* auto-fill: creates as many columns as fit.
-     minmax(260px, 1fr): each column is min 260px,
-     max 1fr. Results:
-       < 480px  → 1 column
-       480-780px → 2 columns
-       780px-1040px → 3 columns
-       > 1040px → 4 columns
-       > 1300px → 5 columns (TV)            */
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 2rem;
   padding: 1rem;
   margin-inline: auto;
   width: 100%;
 }
 
-/* TV screens: slightly larger minimum card width
-   so cards don't stretch too wide */
-@media (min-width: 1440px) {
+@media (max-width: 1200px) {
   .cards {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2.5rem;
-    padding: 1.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-/* Very large TVs: cap at 6 columns */
-@media (min-width: 1920px) {
+@media (max-width: 900px) {
   .cards {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1440px) {
+  .cards {
+    gap: 2.5rem;
+    padding: 1.5rem;
   }
 }
 
