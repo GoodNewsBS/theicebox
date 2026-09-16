@@ -73,13 +73,10 @@ background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, F
       color: rgb(0, 0, 0);
     }
 
-<<<<<<< HEAD
  .dropdown-menu{
       color: rgb(0, 0, 0);
     }
 
-=======
->>>>>>> c4325e7 (Add Netlify functions setup)
 .dropdown-item {
   font-family: "Ranchers", system-ui;
   font-size: 1.3rem;
@@ -230,7 +227,7 @@ main {
 .card-img-overlay{
     display: block;
     margin: auto;
-    max-width: 75%;
+    max-width: 77%;
     height: auto;   
 }
 
