@@ -124,20 +124,20 @@
     /* ── PRODUCT GRID ── */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1.25rem;
       align-items: stretch;
     }
 
     @media (max-width: 1200px) {
       .product-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 900px) {
       .product-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
       }
     }
 
@@ -169,7 +169,8 @@
       width: 100%;
       height: 40%;
       flex-shrink: 0;
-      object-fit: cover;
+      object-fit: contain;
+      background: rgba(255,255,255,0.35);
       display: block;
     }
     .product-card .card-body {
@@ -1239,6 +1240,280 @@
           <div class="add-form">
             <input type="number" class="qty-input" value="1" min="1" max="99">
             <button class="btn btn-primary" onclick="addToCart(this, 'topping_cherries', 'Cherries', 75)">Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Additional food images from the project folder -->
+  <div class="category-section" data-category="featured">
+    <h2 class="category-heading">Featured Food &amp; Treats</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="birthdaygel.png" alt="Birthday gelati">
+        <div class="card-body">
+          <span class="size-badge">Featured</span>
+          <h3>Birthday Gelati</h3>
+          <p>Layered water ice and soft serve topped for a birthday celebration.</p>
+          <div class="product-price">$6.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_birthday_gelati', 'Birthday Gelati', 650)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="brbie.jpeg" alt="Barbie frozen treat">
+        <div class="card-body">
+          <span class="size-badge">Featured</span>
+          <h3>Barbie Frozen Treat</h3>
+          <p>A colorful frozen treat made for a fun and festive order.</p>
+          <div class="product-price">$6.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_barbie_treat', 'Barbie Frozen Treat', 600)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="cherrysundae.png" alt="Cherry sundae">
+        <div class="card-body">
+          <span class="size-badge">Sundae</span>
+          <h3>Cherry Sundae</h3>
+          <p>Soft serve with cherry topping for a classic sundae finish.</p>
+          <div class="product-price">$6.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_cherry_sundae', 'Cherry Sundae', 600)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="cinchkwaff.png" alt="Cinnamon churro waffle">
+        <div class="card-body">
+          <span class="size-badge">Waffle</span>
+          <h3>Cinnamon Churro Waffle</h3>
+          <p>A warm cinnamon waffle dessert with a sweet, crisp finish.</p>
+          <div class="product-price">$7.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_cinnamon_waffle', 'Cinnamon Churro Waffle', 700)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="cinnabuncone.png" alt="Cinnabun cone">
+        <div class="card-body">
+          <span class="size-badge">Cone</span>
+          <h3>Cinnabun Cone</h3>
+          <p>A cinnamon-forward cone treat made for soft serve lovers.</p>
+          <div class="product-price">$5.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_cinnabun_cone', 'Cinnabun Cone', 550)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="cttnndmang.png" alt="Cotton candy and mango treat">
+        <div class="card-body">
+          <span class="size-badge">Water Ice</span>
+          <h3>Cotton Candy &amp; Mango</h3>
+          <p>A bright combination of cotton candy and mango water ice flavors.</p>
+          <div class="product-price">$4.50</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_cotton_mango', 'Cotton Candy & Mango Water Ice', 450)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="deal copy.jpg" alt="IceBox frozen treat deal">
+        <div class="card-body">
+          <span class="size-badge">Featured</span>
+          <h3>IceBox Treat Deal</h3>
+          <p>A featured combination of frozen treats for sharing.</p>
+          <div class="product-price">$8.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_treat_deal', 'IceBox Treat Deal', 800)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="friedoreo.png" alt="Fried Oreos">
+        <div class="card-body">
+          <span class="size-badge">Dessert</span>
+          <h3>Fried Oreos</h3>
+          <p>Warm fried Oreos dusted with sweetness for a shareable dessert.</p>
+          <div class="product-price">$6.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_fried_oreos', 'Fried Oreos', 600)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="icecrepe.jpg" alt="Ice cream crepe">
+        <div class="card-body">
+          <span class="size-badge">Dessert</span>
+          <h3>Ice Cream Crepe</h3>
+          <p>A sweet crepe filled with a cool IceBox frozen treat.</p>
+          <div class="product-price">$8.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_ice_cream_crepe', 'Ice Cream Crepe', 800)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="iceparfait.png" alt="Ice cream parfait">
+        <div class="card-body">
+          <span class="size-badge">Parfait</span>
+          <h3>Ice Cream Parfait</h3>
+          <p>Layers of creamy ice cream and sweet toppings in a parfait cup.</p>
+          <div class="product-price">$7.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_ice_cream_parfait', 'Ice Cream Parfait', 700)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="loadednachos.png" alt="Loaded nachos">
+        <div class="card-body">
+          <span class="size-badge">Hot Food</span>
+          <h3>Loaded Nachos</h3>
+          <p>Loaded nachos with savory toppings for a hearty snack.</p>
+          <div class="product-price">$8.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_loaded_nachos', 'Loaded Nachos', 800)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="mintice.png" alt="Mint water ice">
+        <div class="card-body">
+          <span class="size-badge">Water Ice</span>
+          <h3>Mint Water Ice</h3>
+          <p>A cool mint-flavored water ice option for a refreshing treat.</p>
+          <div class="product-price">$4.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_mint_water_ice', 'Mint Water Ice', 400)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="oreoand.png" alt="Oreo dessert">
+        <div class="card-body">
+          <span class="size-badge">Dessert</span>
+          <h3>Oreo Dessert</h3>
+          <p>A creamy frozen dessert finished with crunchy Oreo pieces.</p>
+          <div class="product-price">$7.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_oreo_dessert', 'Oreo Dessert', 700)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="puffff.png" alt="Puff pastry dessert">
+        <div class="card-body">
+          <span class="size-badge">Dessert</span>
+          <h3>Puff Pastry Treat</h3>
+          <p>A flaky pastry dessert to pair with your favorite frozen treat.</p>
+          <div class="product-price">$6.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_puff_pastry', 'Puff Pastry Treat', 600)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sourgelati.png" alt="Sour gelati">
+        <div class="card-body">
+          <span class="size-badge">Gelati</span>
+          <h3>Sour Gelati</h3>
+          <p>Sour water ice layered with smooth soft serve ice cream.</p>
+          <div class="product-price">$5.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_sour_gelati', 'Sour Gelati', 500)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sourrainbowwaterice.png" alt="Sour rainbow water ice">
+        <div class="card-body">
+          <span class="size-badge">Water Ice</span>
+          <h3>Sour Rainbow Water Ice</h3>
+          <p>A colorful water ice blend with a bright sour finish.</p>
+          <div class="product-price">$4.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_sour_rainbow', 'Sour Rainbow Water Ice', 400)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sourwi.png" alt="Sour water ice">
+        <div class="card-body">
+          <span class="size-badge">Water Ice</span>
+          <h3>Sour Water Ice</h3>
+          <p>A tangy water ice treat for fans of bold, sour flavors.</p>
+          <div class="product-price">$4.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_sour_water_ice', 'Sour Water Ice', 400)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="sundae.jpeg" alt="Ice cream sundae">
+        <div class="card-body">
+          <span class="size-badge">Sundae</span>
+          <h3>Classic Sundae</h3>
+          <p>Soft serve topped with a selection of sweet sundae toppings.</p>
+          <div class="product-price">$6.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_classic_sundae', 'Classic Sundae', 600)">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="waffle.jpeg" alt="Ice cream waffle">
+        <div class="card-body">
+          <span class="size-badge">Waffle</span>
+          <h3>Ice Cream Waffle</h3>
+          <p>A warm waffle paired with cool, creamy soft serve ice cream.</p>
+          <div class="product-price">$8.00</div>
+          <div class="add-form">
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button class="btn btn-primary" onclick="addToCart(this, 'featured_ice_cream_waffle', 'Ice Cream Waffle', 800)">Add</button>
           </div>
         </div>
       </div>
